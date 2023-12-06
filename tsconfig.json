@@ -19,7 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@assets/*": ["./src/assets/*"],
       "@lib/*": ["./src/lib/*"]
     }
   },

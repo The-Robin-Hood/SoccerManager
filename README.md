@@ -31,6 +31,7 @@ To set up and run the Soccer Manager App on your local machine, follow these ste
   - **`components`**: Reusable React components.
   - **`lib`**: Utility functions and types used across the app.
   - **`assets`**: Store static assets such as logos.
+- **`public`**: Publicly accessible files.
 - **`node_modules`**: Node.js dependencies.
 - **`README.md`**: The file you are currently reading.
 - **`tailwind.config.js`**: Configuration file for the Tailwind CSS framework.

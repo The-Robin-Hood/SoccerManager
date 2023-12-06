@@ -62,7 +62,14 @@ const FormationView = ({ players }: { players: Player[] }) => {
                   <span className='text-2xl font-medium text-white'>{activePlayer.name}</span>
                   <span className='text-lg font-semibold text-primary'>{activePlayer.position}</span>
                 </div>
-                <img src={activePlayer.image} alt={activePlayer.name + " image"} className='h-[258px] w-[175px]' />
+                <img
+                  src={activePlayer.image}
+                  alt={activePlayer.name + " image"}
+                  className='h-[258px] w-[175px]'
+                  onError={(e) => {
+                    e.currentTarget.src = "/assets/default-player.png";
+                  }}
+                />
               </div>
               <div className='mt-4 flex h-11 grid-cols-3 gap-8'>
                 <div className='flex flex-col justify-start gap-2'>
