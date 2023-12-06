@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction, useState } from "react";
+
+import { Button } from "@components/common/Button";
 import {
   Dialog,
   DialogContent,
@@ -8,9 +11,8 @@ import {
   DialogTrigger,
 } from "@components/common/Dialog";
 import { Separator } from "@components/common/Separator";
+
 import FileInput from "./FileInput";
-import { Button } from "@components/common/Button";
-import { Dispatch, SetStateAction, useState } from "react";
 
 const ImporterDialog = ({
   dialogOpen,
@@ -38,27 +40,27 @@ const ImporterDialog = ({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         {!imported ? (
-          <Button variant="default" onClick={handleImportDialog}>
+          <Button variant='default' onClick={handleImportDialog}>
             Import Team
           </Button>
         ) : (
-          <Button variant="outline" onClick={handleImportDialog}>
+          <Button variant='outline' onClick={handleImportDialog}>
             Re-Import Team
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-w-[800px] min-h-[600px] border-none bg-[#2D2D2D]">
+      <DialogContent className='min-h-[600px] max-w-[800px] border-none bg-[#2D2D2D]'>
         <DialogHeader>
-          <DialogTitle className="mb-3">Importer</DialogTitle>
-          <Separator className="bg-outline" />
+          <DialogTitle className='mb-3'>Importer</DialogTitle>
+          <Separator className='bg-outline' />
           <DialogDescription asChild>
             <div>
-              <p className="font-medium text-sm">Roaster File</p>
+              <p className='text-sm font-medium'>Roaster File</p>
               <FileInput players={datas} setPlayers={setDatas} />
             </div>
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="items-end">
+        <DialogFooter className='items-end'>
           <Button onClick={handleImport} disabled={datas.length === 0}>
             Import
           </Button>

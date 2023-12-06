@@ -1,3 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getLocalStorage } from "@lib/localStorage";
+import cn from "@lib/utils";
+import { EditPlayerSchema, editPlayerSchema } from "@lib/validations/editPlayer";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@components/common/Button";
 import {
   Dialog,
   DialogContent,
@@ -7,22 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@components/common/Dialog";
-import { Button } from "@components/common/Button";
-import { useForm } from "react-hook-form";
-
-import {
-  FontAwesomeIcon,
-  faChevronDown,
-  faPen,
-} from "@components/common/Icons";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import {
-  EditPlayerSchema,
-  editPlayerSchema,
-} from "@lib/validations/editPlayer";
-import { zodResolver } from "@hookform/resolvers/zod";
-import cn from "@lib/utils";
-import { getLocalStorage } from "@lib/localStorage";
+import { FontAwesomeIcon, faChevronDown, faPen } from "@components/common/Icons";
 
 const EditDialog = ({
   dialogOpen,
@@ -38,9 +31,7 @@ const EditDialog = ({
   setDialogOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [error, setError] = useState("");
-  const nationalities = [
-    ...new Set(players.map((player) => player.nationality)),
-  ];
+  const nationalities = [...new Set(players.map((player) => player.nationality))];
 
   const handleImportDialog = () => {
     setDialogOpen(true);
@@ -67,8 +58,7 @@ const EditDialog = ({
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
       const firstError = Object.keys(errors)[0] as keyof EditPlayerSchema;
-      if (errors[firstError]?.message?.startsWith("Expected"))
-        return setError("Please enter a valid number");
+      if (errors[firstError]?.message?.startsWith("Expected")) return setError("Please enter a valid number");
       setError(errors[firstError]?.message as string);
     }
   }, [errors]);
@@ -84,36 +74,28 @@ const EditDialog = ({
   const onSubmit = (data: EditPlayerSchema) => {
     if (data.starter === "Yes" && !players[index].starter) {
       if (
-        players.some(
-          (player) => player.starter && player.position === "Goalkeeper"
-        ) &&
+        players.some((player) => player.starter && player.position === "Goalkeeper") &&
         data.position === "Goalkeeper"
       ) {
         setError("You can only have one goalkeeper as a starter");
         return;
       }
       if (
-        players.filter(
-          (player) => player.starter && player.position === "Forward"
-        ).length >= 3 &&
+        players.filter((player) => player.starter && player.position === "Forward").length >= 3 &&
         data.position === "Forward"
       ) {
         setError("You can only have 3 forwards as a starter");
         return;
       }
       if (
-        players.filter(
-          (player) => player.starter && player.position === "Midfielder"
-        ).length >= 3 &&
+        players.filter((player) => player.starter && player.position === "Midfielder").length >= 3 &&
         data.position === "Midfielder"
       ) {
         setError("You can only have 3 midfielders as a starter");
         return;
       }
       if (
-        players.filter(
-          (player) => player.starter && player.position === "Defender"
-        ).length >= 4 &&
+        players.filter((player) => player.starter && player.position === "Defender").length >= 4 &&
         data.position === "Defender"
       ) {
         setError("You can only have 4 defenders as a starter");
@@ -142,36 +124,28 @@ const EditDialog = ({
       <DialogTrigger asChild>
         <Button
           onClick={handleImportDialog}
-          variant="ghost"
-          className="p-0 font-medium text-sm w-full flex items-center justify-start"
-        >
-          <FontAwesomeIcon icon={faPen} className="mr-3 w-4 h-4 text-base" />
+          variant='ghost'
+          className='flex w-full items-center justify-start p-0 text-sm font-medium'>
+          <FontAwesomeIcon icon={faPen} className='mr-3 h-4 w-4 text-base' />
           Edit Player
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[480px] min-h-[582px] border-none bg-[#2D2D2D]">
-        <DialogHeader className="space-y-0">
+      <DialogContent className='min-h-[582px] max-w-[480px] border-none bg-[#2D2D2D]'>
+        <DialogHeader className='space-y-0'>
           <DialogTitle>Edit Player</DialogTitle>
           <DialogDescription asChild>
-            <form
-              id="edit-player-form"
-              className="pt-6 flex flex-col gap-4"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="flex h-[73px] w-full gap-4">
-                <div className="flex flex-col justify-between">
-                  <label
-                    htmlFor="player-name"
-                    className="block text-sm font-medium text-white"
-                  >
+            <form id='edit-player-form' className='flex flex-col gap-4 pt-6' onSubmit={handleSubmit(onSubmit)}>
+              <div className='flex h-[73px] w-full gap-4'>
+                <div className='flex flex-col justify-between'>
+                  <label htmlFor='player-name' className='block text-sm font-medium text-white'>
                     Player Name
                   </label>
                   <input
-                    type="text"
-                    id="player-name"
+                    type='text'
+                    id='player-name'
                     defaultValue={players[index].name}
                     className={cn(
-                      "h-11 w-64 px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg",
+                      "h-11 w-64 rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none",
                       {
                         "border-error": errors.name,
                       }
@@ -179,19 +153,16 @@ const EditDialog = ({
                     {...register("name", { required: true })}
                   />
                 </div>
-                <div className="flex flex-col justify-between">
-                  <label
-                    htmlFor="jersey-number"
-                    className="block text-sm font-medium text-white"
-                  >
+                <div className='flex w-full flex-col justify-between'>
+                  <label htmlFor='jersey-number' className='block text-sm font-medium text-white'>
                     Jersey Number
                   </label>
                   <input
-                    type="number"
-                    id="jersey-number"
+                    type='number'
+                    id='jersey-number'
                     defaultValue={players[index].jerseyNumber}
                     className={cn(
-                      "appearance-none h-11 w-full px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg",
+                      "h-11 w-full appearance-none rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none",
                       {
                         "border-error": errors.jerseyNumber,
                       }
@@ -205,21 +176,18 @@ const EditDialog = ({
                   />
                 </div>
               </div>
-              <div className="flex h-[73px] w-full gap-4">
-                <div className="flex flex-col justify-between">
-                  <label
-                    htmlFor="height"
-                    className="block text-sm font-medium text-white"
-                  >
+              <div className='flex h-[73px] w-full gap-4'>
+                <div className='flex flex-col justify-between'>
+                  <label htmlFor='height' className='block text-sm font-medium text-white'>
                     Height
                   </label>
                   <input
-                    type="number"
+                    type='number'
                     min={-1} // Will be set as Unkown if -1
-                    id="height"
+                    id='height'
                     defaultValue={players[index].height}
                     className={cn(
-                      "h-11 w-full px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg",
+                      "h-11 w-full rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none",
                       {
                         "border-error": errors.height,
                       }
@@ -230,19 +198,16 @@ const EditDialog = ({
                     })}
                   />
                 </div>
-                <div className="flex flex-col justify-between">
-                  <label
-                    htmlFor="weight"
-                    className="block text-sm font-medium text-white"
-                  >
+                <div className='flex flex-col justify-between'>
+                  <label htmlFor='weight' className='block text-sm font-medium text-white'>
                     Weight
                   </label>
                   <input
-                    type="number"
-                    id="weight"
+                    type='number'
+                    id='weight'
                     defaultValue={players[index].weight}
                     className={cn(
-                      "appearance-none h-11 w-full px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg",
+                      "h-11 w-full appearance-none rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none",
                       {
                         "border-error": errors.weight,
                       }
@@ -255,102 +220,70 @@ const EditDialog = ({
                   />
                 </div>
               </div>
-              <div className="flex flex-col h-20 w-full gap-3 relative">
-                <label
-                  htmlFor="nationality"
-                  className="block text-sm font-medium text-white"
-                >
+              <div className='relative flex h-20 w-full flex-col gap-3'>
+                <label htmlFor='nationality' className='block text-sm font-medium text-white'>
                   Nationality
                 </label>
 
                 <select
-                  id="nationality"
+                  id='nationality'
                   defaultValue={players[index].nationality}
-                  className="h-12 w-full px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg appearance-none"
-                  {...register("nationality", { required: true })}
-                >
+                  className='h-12 w-full appearance-none rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none'
+                  {...register("nationality", { required: true })}>
                   {nationalities.map((nationality, index) => (
-                    <option
-                      value={nationality}
-                      key={index}
-                      className="text-[#F8F8F8] rounded-sm bg-outline border"
-                    >
+                    <option value={nationality} key={index} className='rounded-sm border bg-outline text-[#F8F8F8]'>
                       {nationality}
                     </option>
                   ))}
                 </select>
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="mr-3 w-4 h-4 text-base absolute bottom-4 right-1"
-                />
+                <FontAwesomeIcon icon={faChevronDown} className='absolute bottom-4 right-1 mr-3 h-4 w-4 text-base' />
               </div>
-              <div className="flex flex-col h-20 w-full gap-3 relative">
-                <label
-                  htmlFor="position"
-                  className="block text-sm font-medium text-white"
-                >
+              <div className='relative flex h-20 w-full flex-col gap-3'>
+                <label htmlFor='position' className='block text-sm font-medium text-white'>
                   Position
                 </label>
                 <select
-                  id="position"
+                  id='position'
                   {...register("position", { required: true })}
-                  className="h-12 w-full px-4 py-3 bg-transparent text-[#F8F8F8] focus:outline-none border border-outline rounded-lg appearance-none"
-                >
-                  {["Goalkeeper", "Forward", "Midfielder", "Defender"].map(
-                    (position, index) => (
-                      <option
-                        value={position}
-                        key={index}
-                        className="text-[#F8F8F8] rounded-sm bg-outline border"
-                      >
-                        {position}
-                      </option>
-                    )
-                  )}
+                  className='h-12 w-full appearance-none rounded-lg border border-outline bg-transparent px-4 py-3 text-[#F8F8F8] focus:outline-none'>
+                  {["Goalkeeper", "Forward", "Midfielder", "Defender"].map((position, index) => (
+                    <option value={position} key={index} className='rounded-sm border bg-outline text-[#F8F8F8]'>
+                      {position}
+                    </option>
+                  ))}
                 </select>
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="mr-3 w-4 h-4 text-base absolute bottom-4 right-1"
-                />
+                <FontAwesomeIcon icon={faChevronDown} className='absolute bottom-4 right-1 mr-3 h-4 w-4 text-base' />
               </div>
-              <div className="flex flex-col h-20 w-full gap-4">
-                <label className="block text-sm font-medium text-white">
-                  Starter
-                </label>
-                <div className="flex gap-4">
-                  <label
-                    htmlFor="starter-no"
-                    className="flex gap-2 items-center cursor-pointer"
-                  >
+              <div className='flex h-20 w-full flex-col gap-4'>
+                <label className='block text-sm font-medium text-white'>Starter</label>
+                <div className='flex gap-4'>
+                  <label htmlFor='starter-no' className='flex cursor-pointer items-center gap-2'>
                     <input
-                      type="radio"
-                      id="starter-no"
-                      value="No"
-                      className="hidden peer"
+                      type='radio'
+                      id='starter-no'
+                      value='No'
+                      className='peer hidden'
                       defaultChecked={!players[index].starter}
                       {...register("starter", {
                         required: true,
                       })}
                     />
-                    <div className="w-4 h-4 border border-gray-500 rounded-full peer-checked:border-primary peer-checked:border-4"></div>
+                    <div className='h-4 w-4 rounded-full border border-gray-500 peer-checked:border-4 peer-checked:border-primary'></div>
                     No
                   </label>
 
-                  <label
-                    htmlFor="starter-yes"
-                    className="flex gap-2 items-center cursor-pointer"
-                  >
+                  <label htmlFor='starter-yes' className='flex cursor-pointer items-center gap-2'>
                     <input
-                      type="radio"
-                      id="starter-yes"
-                      value="Yes"
-                      className="hidden peer"
+                      type='radio'
+                      id='starter-yes'
+                      value='Yes'
+                      className='peer hidden'
                       defaultChecked={players[index].starter}
                       {...register("starter", {
                         required: true,
                       })}
                     />
-                    <div className="w-4 h-4 border border-gray-500 rounded-full peer-checked:border-primary peer-checked:border-4"></div>
+                    <div className='h-4 w-4 rounded-full border border-gray-500 peer-checked:border-4 peer-checked:border-primary'></div>
                     Yes
                   </label>
                 </div>
@@ -358,11 +291,9 @@ const EditDialog = ({
             </form>
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="items-end">
-          <p className="flex text-error text-sm font-medium self-center justify-center w-full">
-            {error}
-          </p>
-          <Button disabled={!isDirty} form="edit-player-form" type="submit">
+        <DialogFooter className='items-end'>
+          <p className='flex w-full justify-center self-center text-sm font-medium text-error'>{error}</p>
+          <Button disabled={!isDirty} form='edit-player-form' type='submit'>
             Edit Player
           </Button>
         </DialogFooter>

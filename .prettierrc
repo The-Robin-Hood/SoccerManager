@@ -1,0 +1,14 @@
+{
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "singleQuote": false,
+  "jsxSingleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
+  "printWidth": 120,
+  "arrowParens": "always",
+  "importOrder": ["^@assets/(.*)", "^@libs/(.*)", "^@components/(.*)", "^~/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
+}

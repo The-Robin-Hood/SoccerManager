@@ -1,18 +1,9 @@
-import { Button } from "@components/common/Button";
-import {
-  FontAwesomeIcon,
-  faClose,
-  faMagnifyingGlass,
-} from "@components/common/Icons";
 import { useRef, useState } from "react";
 
-const SearchBar = ({
-  searchText,
-  setSearchText,
-}: {
-  searchText: string;
-  setSearchText: (text: string) => void;
-}) => {
+import { Button } from "@components/common/Button";
+import { FontAwesomeIcon, faClose, faMagnifyingGlass } from "@components/common/Icons";
+
+const SearchBar = ({ searchText, setSearchText }: { searchText: string; setSearchText: (text: string) => void }) => {
   const [search, setSearch] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,37 +23,33 @@ const SearchBar = ({
     if (e.key === "Enter") {
       handleSearch();
     }
-    if (e.key === "Escape" || e.key === "Backspace" && inputRef.current!.value.length<=1) {
+    if (e.key === "Escape" || (e.key === "Backspace" && inputRef.current!.value.length <= 1)) {
       handleCancelSearch();
     }
   };
 
   return (
     <div
-      className="flex items-center justify-center bg-background outline outline-1 outline-outline rounded-lg w-60 px-4 py-3 gap-2 group"
-      onClick={() => inputRef.current?.focus()}
-    >
-      <FontAwesomeIcon
-        icon={faMagnifyingGlass}
-        className="text-[#999999] text-sm"
-      />
+      className='group flex w-60 items-center justify-center gap-2 rounded-lg bg-background px-4 py-3 outline outline-1 outline-outline'
+      onClick={() => inputRef.current?.focus()}>
+      <FontAwesomeIcon icon={faMagnifyingGlass} className='text-sm text-[#999999]' />
       <input
-        id="search"
+        id='search'
         ref={inputRef}
-        className="w-full text-sm text-[#999999] placeholder-[#999999] border-none outline-none bg-background"
-        type="text"
-        placeholder="Find Player"
+        className='w-full border-none bg-background text-sm text-[#999999] placeholder-[#999999] outline-none'
+        type='text'
+        placeholder='Find Player'
         defaultValue={searchText}
         onKeyDown={handleKeyStrokes}
       />
       {!search ? (
-        <Button variant="link" className="p-0 h-fit" onClick={handleSearch}>
+        <Button variant='link' className='h-fit p-0' onClick={handleSearch}>
           Search
         </Button>
       ) : (
         <FontAwesomeIcon
           icon={faClose}
-          className="text-[#999999] text-sm cursor-pointer"
+          className='cursor-pointer text-sm text-[#999999]'
           onClick={handleCancelSearch}
         />
       )}

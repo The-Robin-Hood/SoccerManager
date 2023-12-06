@@ -7,12 +7,14 @@ This application helps you manage your soccer team by providing a user-friendly 
 To set up and run the Soccer Manager App on your local machine, follow these steps:
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/The-Robin-Hood/SoccerManager
    cd SoccerManager
    ```
 
 2. **Install Dependencies:**
+
    ```bash
    pnpm install
    ```

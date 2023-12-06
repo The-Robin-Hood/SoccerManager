@@ -1,49 +1,37 @@
 import {
   AlertDialog,
-  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@components/common/AlertDialog";
-
 import { Button } from "@components/common/Button";
-import { FontAwesomeIcon, faTrashAlt, faClose } from "@components/common/Icons";
+import { FontAwesomeIcon, faClose, faTrashAlt } from "@components/common/Icons";
 
 function DeleteDialog({ handleDelete }: { handleDelete: () => void }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="p-0 font-medium text-sm flex items-center justify-start"
-        >
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            className="mr-3 w-4 h-4 text-base"
-          />
+        <Button variant='ghost' className='flex items-center justify-start p-0 text-sm font-medium'>
+          <FontAwesomeIcon icon={faTrashAlt} className='mr-3 h-4 w-4 text-base' />
           Delete Player
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-[#2D2D2D] max-w-sm h-[186px] px-6 py-[18px]">
-        <AlertDialogHeader className="gap-4">
-          <AlertDialogTitle className="flex justify-between items-center w-full">
+      <AlertDialogContent className='h-[186px] max-w-sm bg-[#2D2D2D] px-6 py-[18px]'>
+        <AlertDialogHeader className='gap-4'>
+          <AlertDialogTitle className='flex w-full items-center justify-between'>
             Are you sure?
-            <AlertDialogCancel className="border-0 p-0 h-fit">
-              <FontAwesomeIcon
-                icon={faClose}
-                className="text-primary-foreground w-4 h-4"
-              />
+            <AlertDialogCancel className='h-fit border-0 p-0'>
+              <FontAwesomeIcon icon={faClose} className='h-4 w-4 text-primary-foreground' />
             </AlertDialogCancel>
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone.
-          </AlertDialogDescription>
+          <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="h-fit">
+        <AlertDialogFooter className='h-fit'>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
         </AlertDialogFooter>

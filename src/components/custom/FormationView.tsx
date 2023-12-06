@@ -1,11 +1,11 @@
-import { Separator } from "@components/common/Separator";
-import {
-  FontAwesomeIcon,
-  faTriangleExclamation,
-} from "@components/common/Icons";
-import Field from "./Field";
-import { useState } from "react";
 import { trimText } from "@lib/stringManipulation";
+import { useState } from "react";
+
+import { FontAwesomeIcon, faTriangleExclamation } from "@components/common/Icons";
+import { Separator } from "@components/common/Separator";
+
+import Field from "./Field";
+
 const FormationView = ({ players }: { players: Player[] }) => {
   const starters = players.filter((player) => player.starter);
   const [activePlayer, setActivePlayer] = useState<Player>(
@@ -18,138 +18,97 @@ const FormationView = ({ players }: { players: Player[] }) => {
           description: "Please import your roster first.",
         }
       : starters.length < 11
-      ? {
-          title: "Not enough starters",
-          description:
-            "Your team doesn’t have enough starters  for one or more of the positions in the 4-3-3 formation.",
-        }
-      : starters.length > 11
-      ? {
-          title: "There are too many starters",
-          description:
-            "Your team has too many starters for one or more of the positions in the 4-3-3 formation.",
-        }
-      : {
-          title: "Formation",
-          description: "4-3-3",
-        };
+        ? {
+            title: "Not enough starters",
+            description:
+              "Your team doesn’t have enough starters  for one or more of the positions in the 4-3-3 formation.",
+          }
+        : starters.length > 11
+          ? {
+              title: "There are too many starters",
+              description: "Your team has too many starters for one or more of the positions in the 4-3-3 formation.",
+            }
+          : {
+              title: "Formation",
+              description: "4-3-3",
+            };
 
   return (
-    <div className="flex flex-1 p-8 max-h-[calc(100%-40px)] rounded-lg bg-[#2D2D2D] gap-8 relative overflow-hidden items-center justify-center">
+    <div className='relative flex max-h-[calc(100%-40px)] flex-1 items-center justify-center gap-8 overflow-hidden rounded-lg bg-[#2D2D2D] p-8'>
       {starters.length !== 11 && (
-        <div className="absolute top-0 left-0 w-full h-full bg-black/30 flex justify-center items-center">
-          <div className="bg-[#2D2D2D] h-32 w-96 rounded-lg p-6 flex flex-col items-center justify-center text-center gap-2">
-            <p className="text-white">
-              <FontAwesomeIcon
-                icon={faTriangleExclamation}
-                className="text-[#FEA013] text-[18px] mr-2 font-medium"
-              />
+        <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black/30'>
+          <div className='flex h-32 w-96 flex-col items-center justify-center gap-2 rounded-lg bg-[#2D2D2D] p-6 text-center'>
+            <p className='text-white'>
+              <FontAwesomeIcon icon={faTriangleExclamation} className='mr-2 text-[18px] font-medium text-[#FEA013]' />
               {info.title}
             </p>
-            <p className="text-primary-foreground font-normal text-[14px]">
-              {info.description}
-            </p>
+            <p className='text-[14px] font-normal text-primary-foreground'>{info.description}</p>
           </div>
         </div>
       )}
       <Field players={players} setActivePlayer={setActivePlayer} />
-      <div className="w-full h-full max-w-xs bg-[#222222] rounded-[4px] flex flex-col p-6 max-h-[540px] min-w-[320px]">
+      <div className='flex h-full max-h-[540px] w-full min-w-[320px] max-w-xs flex-col rounded-[4px] bg-[#222222] p-6'>
         {starters.length === 11 ? (
           <>
-            <div className="flex flex-col h-2/3 justify-center relative">
-              <div className="absolute text-primary text-[40px] font-semibold top-0 ml-3 jerseyNumber z-10" data-name={activePlayer.jerseyNumber}>
+            <div className='relative flex h-2/3 flex-col justify-center'>
+              <div
+                className='jerseyNumber absolute top-0 z-10 ml-3 text-[40px] font-semibold text-primary'
+                data-name={activePlayer.jerseyNumber}>
                 {activePlayer.jerseyNumber}
               </div>
-              <div className="flex justify-center w-full relative">
-                <div className="absolute w-[175px] h-[258px] bg-player-overlay"></div>
-                <div className="flex flex-col absolute bottom-0 left-0">
-                  <span className="text-white text-2xl font-medium">
-                    {activePlayer.name}
-                  </span>
-                  <span className="text-primary text-lg font-semibold">
-                    {activePlayer.position}
-                  </span>
+              <div className='relative flex w-full justify-center'>
+                <div className='absolute h-[258px] w-[175px] bg-player-overlay'></div>
+                <div className='absolute bottom-0 left-0 flex flex-col'>
+                  <span className='text-2xl font-medium text-white'>{activePlayer.name}</span>
+                  <span className='text-lg font-semibold text-primary'>{activePlayer.position}</span>
                 </div>
-                <img
-                  src={activePlayer.image}
-                  alt={activePlayer.name + " image"}
-                  className="w-[175px] h-[258px]"
-                />
+                <img src={activePlayer.image} alt={activePlayer.name + " image"} className='h-[258px] w-[175px]' />
               </div>
-              <div className="h-11 flex grid-cols-3 gap-8 mt-4">
-                <div className="flex flex-col justify-start gap-2">
-                  <span className="text-primary-foreground text-[14px] font-medium">
-                    Height
-                  </span>
-                  <span className="text-[#F8F8F8] text-[14px] font-semibold">
-                    {activePlayer.height} m
-                  </span>
+              <div className='mt-4 flex h-11 grid-cols-3 gap-8'>
+                <div className='flex flex-col justify-start gap-2'>
+                  <span className='text-[14px] font-medium text-primary-foreground'>Height</span>
+                  <span className='text-[14px] font-semibold text-[#F8F8F8]'>{activePlayer.height} m</span>
                 </div>
-                <div className="flex flex-col justify-start gap-2">
-                  <span className="text-primary-foreground text-[14px] font-medium">
-                    Weight
-                  </span>
-                  <span className="text-[#F8F8F8] text-[14px] font-semibold">
-                    {activePlayer.weight} kg
-                  </span>
+                <div className='flex flex-col justify-start gap-2'>
+                  <span className='text-[14px] font-medium text-primary-foreground'>Weight</span>
+                  <span className='text-[14px] font-semibold text-[#F8F8F8]'>{activePlayer.weight} kg</span>
                 </div>
-                <div className="flex flex-col justify-start gap-2">
-                  <span className="text-primary-foreground text-[14px] font-medium">
-                    Nationality
-                  </span>
-                  <span className="text-[#F8F8F8] text-[14px] font-semibold flex items">
-                    <img
-                      src={activePlayer.flagImage}
-                      className="w-4 h-4 mr-1"
-                    />
+                <div className='flex flex-col justify-start gap-2'>
+                  <span className='text-[14px] font-medium text-primary-foreground'>Nationality</span>
+                  <span className='items flex text-[14px] font-semibold text-[#F8F8F8]'>
+                    <img src={activePlayer.flagImage} className='mr-1 h-4 w-4' />
                     {trimText(activePlayer.nationality, 10)}
                   </span>
                 </div>
               </div>
             </div>
-            <Separator className="bg-outline my-6" />
-            <div className="flex flex-col gap-4 h-1/3">
-              <div className="flex gap-14">
-                <div className="flex flex-col min-w-[82px]">
-                  <p className="text-primary font-semibold text-2xl">
-                    {activePlayer.appearances}
-                  </p>
-                  <p className="text-primary-foreground font-normal text-[12px]">
-                    Appearances
-                  </p>
+            <Separator className='my-6 bg-outline' />
+            <div className='flex h-1/3 flex-col gap-4'>
+              <div className='flex gap-14'>
+                <div className='flex min-w-[82px] flex-col'>
+                  <p className='text-2xl font-semibold text-primary'>{activePlayer.appearances}</p>
+                  <p className='text-[12px] font-normal text-primary-foreground'>Appearances</p>
                 </div>
-                <div className="flex flex-col min-w-[82px]">
-                  <p className="text-primary font-semibold text-2xl">
-                    {activePlayer.minutesPlayed}
-                  </p>
-                  <p className="text-primary-foreground font-normal text-[12px]">
-                    Minutes Played
-                  </p>
+                <div className='flex min-w-[82px] flex-col'>
+                  <p className='text-2xl font-semibold text-primary'>{activePlayer.minutesPlayed}</p>
+                  <p className='text-[12px] font-normal text-primary-foreground'>Minutes Played</p>
                 </div>
               </div>
-              <div className="flex gap-14">
-                <div className="flex flex-col min-w-[82px]">
-                  <p className="text-primary font-semibold text-2xl">
-                    {activePlayer.position === "Goalkeeper"
-                      ? activePlayer.cleanSheets
-                      : activePlayer.goals}
+              <div className='flex gap-14'>
+                <div className='flex min-w-[82px] flex-col'>
+                  <p className='text-2xl font-semibold text-primary'>
+                    {activePlayer.position === "Goalkeeper" ? activePlayer.cleanSheets : activePlayer.goals}
                   </p>
-                  <p className="text-primary-foreground font-normal text-[12px]">
-                    {activePlayer.position === "Goalkeeper"
-                      ? "Clean sheets"
-                      : "Goals"}
+                  <p className='text-[12px] font-normal text-primary-foreground'>
+                    {activePlayer.position === "Goalkeeper" ? "Clean sheets" : "Goals"}
                   </p>
                 </div>
-                <div className="flex flex-col min-w-[82px]">
-                  <p className="text-primary font-semibold text-2xl">
-                    {activePlayer.position === "Goalkeeper"
-                      ? activePlayer.saves
-                      : activePlayer.assists}
+                <div className='flex min-w-[82px] flex-col'>
+                  <p className='text-2xl font-semibold text-primary'>
+                    {activePlayer.position === "Goalkeeper" ? activePlayer.saves : activePlayer.assists}
                   </p>
-                  <p className="text-primary-foreground font-normal text-[12px]">
-                    {activePlayer.position === "Goalkeeper"
-                      ? "Saves"
-                      : "Assists"}
+                  <p className='text-[12px] font-normal text-primary-foreground'>
+                    {activePlayer.position === "Goalkeeper" ? "Saves" : "Assists"}
                   </p>
                 </div>
               </div>
@@ -157,9 +116,9 @@ const FormationView = ({ players }: { players: Player[] }) => {
           </>
         ) : (
           <>
-            <div className="flex flex-col h-2/3 justify-center relative"></div>
-            <Separator className="bg-outline my-6" />
-            <div className="flex flex-col gap-4 h-1/3"></div>
+            <div className='relative flex h-2/3 flex-col justify-center'></div>
+            <Separator className='my-6 bg-outline' />
+            <div className='flex h-1/3 flex-col gap-4'></div>
           </>
         )}
       </div>
