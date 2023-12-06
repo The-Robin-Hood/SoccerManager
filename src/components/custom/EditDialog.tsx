@@ -197,6 +197,7 @@ const EditDialog = ({
                       }
                     )}
                     min={0}
+                    max={999}
                     {...register("jerseyNumber", {
                       required: true,
                       valueAsNumber: true,
