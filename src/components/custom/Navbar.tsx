@@ -15,7 +15,7 @@ const Navbar = ({
 }) => {
   return (
     <nav className='h-full w-[60px] bg-[#111111] px-4 py-5' aria-label='navbar'>
-      <img src='/assets/logo.svg' alt='soccer logo' />
+      <img src='./assets/logo.svg' alt='soccer logo' />
       <div className='mt-11 flex flex-col justify-center gap-9'>
         {navIcons.map((icon, index) => (
           <button
