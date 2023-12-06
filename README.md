@@ -1,6 +1,8 @@
 # Soccer Manager App
 
-This application helps you manage your soccer team by providing a user-friendly interface to handle player rosters, formations, and more.
+This application helps you manage your soccer team by providing a user-friendly interface to handle player rosters, formations, and more. 
+
+[Demo Link](https://the-robin-hood.github.io/SoccerManager/)
 
 ## Getting Started
 
