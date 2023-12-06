@@ -4,19 +4,16 @@ import { Button } from "@components/common/Button";
 import { FontAwesomeIcon, faClose, faMagnifyingGlass } from "@components/common/Icons";
 
 const SearchBar = ({ searchText, setSearchText }: { searchText: string; setSearchText: (text: string) => void }) => {
-  const [search, setSearch] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = () => {
     if (inputRef.current!.value === "") return;
     setSearchText(inputRef.current!.value);
-    setSearch(true);
   };
 
   const handleCancelSearch = () => {
     setSearchText("");
     inputRef.current!.value = "";
-    setSearch(false);
   };
 
   const handleKeyStrokes = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -42,7 +39,7 @@ const SearchBar = ({ searchText, setSearchText }: { searchText: string; setSearc
         defaultValue={searchText}
         onKeyDown={handleKeyStrokes}
       />
-      {!search ? (
+      {searchText === "" ? (
         <Button variant='link' className='h-fit p-0' onClick={handleSearch}>
           Search
         </Button>

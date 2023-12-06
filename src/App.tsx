@@ -27,7 +27,6 @@ function App() {
             <p className='text-xs font-medium text-primary'>
               {currentActiveNav === 0 ? "Roster Details" : "Formation Overview"}
             </p>
-
             <EditableText initialText='My Team' textClassName='text-[18px] font-semibold' />
           </div>
           {currentActiveNav === 0 && (
