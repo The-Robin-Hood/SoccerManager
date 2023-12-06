@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "@fortawesome/fontawesome-svg-core/styles.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5; /* 24px */
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #222222;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #adacac;
+  border-radius: 5px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.jerseyNumber::after {
+  content: attr(data-name);
+  font-size: 110px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  position: absolute;
+  top: -55px;
+  left: -7px;
+  color: #3A3731;
+  z-index: -1;
+}
