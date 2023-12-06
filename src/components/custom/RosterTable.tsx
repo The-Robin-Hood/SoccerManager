@@ -119,7 +119,8 @@ function RosterTable({
               );
             })}
             {!players.some(
-              (player) => player.name.includes(searchPlayer) && player.position.includes(searchPlayer)
+              (player) =>
+                player.name.toLowerCase().includes(searchPlayer.toLowerCase()) || player.position.toLowerCase().includes(searchPlayer.toLowerCase())
             ) && (
               <tr>
                 <td className='h-6 pt-5 text-center text-lg font-light' colSpan={9}>
