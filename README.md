@@ -2,7 +2,8 @@
 
 This application helps you manage your soccer team by providing a user-friendly interface to handle player rosters, formations, and more. 
 
-[Demo Link](https://the-robin-hood.github.io/SoccerManager/)
+[Demo Link](https://the-robin-hood.github.io/SoccerManager/) -- 
+[Demo CSV](https://the-robin-hood.github.io/SoccerManager/assets/players.csv)
 
 ## Getting Started
 
